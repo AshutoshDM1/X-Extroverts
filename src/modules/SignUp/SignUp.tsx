@@ -2,7 +2,8 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { ChevronLeft, Sparkles } from 'lucide-react';
+import { ChevronLeft } from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
 import { Logo } from '@/Shared/Logo/Logo';
 import HeroBackground from '@/Shared/Background/HeroBackground';
 import { Particles } from '@/components/ui/particles';
@@ -69,12 +70,6 @@ export function SignUpPage() {
     }
   };
 
-  const handleBack = () => {
-    if (currentStep > 1 && currentStep < 5) {
-      setCurrentStep((prev) => (prev - 1) as SignupStep);
-    }
-  };
-
   return (
     <div className="min-h-screen w-full grid grid-cols-1 lg:grid-cols-2 bg-black text-white selection:bg-purple-600 selection:text-white">
       {/* Left Column: Visual Brand, Hero Background Image, Particles & Testimonial */}
@@ -107,10 +102,10 @@ export function SignUpPage() {
         </div>
       </div>
 
-      {/* Right Column: Clean Form Container */}
+      {/* Right Column: Clean Form Container with Fixed Stepper */}
       <div className="relative flex flex-col justify-between p-6 sm:p-10 lg:p-12 xl:p-16 min-h-screen overflow-y-auto bg-black">
         {/* Top: Home Link */}
-        <div className="w-full flex items-center justify-between">
+        <div className="w-full flex items-center justify-between shrink-0">
           <Link
             href="/"
             className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-medium text-zinc-400 hover:text-white transition-colors"
@@ -125,49 +120,69 @@ export function SignUpPage() {
           </div>
         </div>
 
-        {/* Center: Multi-Step Wizard Flow */}
-        <div className="w-full max-w-lg mx-auto my-auto py-8">
-          {/* Wizard Header Progress */}
-          {currentStep > 1 && <WizardStepHeader currentStep={currentStep} onBack={handleBack} />}
-
-          {/* Steps */}
-          {currentStep === 1 && (
-            <Step1EmailOtp
-              formData={formData}
-              updateFormData={updateFormData}
-              onNext={handleNext}
-            />
+        {/* Center: Multi-Step Wizard Flow (Top-aligned to eliminate vertical jumping) */}
+        <div className="w-full max-w-lg mx-auto pt-6 sm:pt-10 pb-8 flex-1 flex flex-col justify-start">
+          {/* Fixed Stepper at top */}
+          {currentStep <= 4 && (
+            <div className="shrink-0 w-full">
+              <WizardStepHeader
+                currentStep={currentStep}
+                onStepClick={(step) => setCurrentStep(step)}
+              />
+            </div>
           )}
 
-          {currentStep === 2 && (
-            <Step2PersonalDetails
-              formData={formData}
-              updateFormData={updateFormData}
-              onNext={handleNext}
-            />
-          )}
+          {/* Steps container that smoothly adjusts height below the fixed stepper */}
+          <div className="w-full">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentStep}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.2, ease: 'easeOut' }}
+                className="w-full"
+              >
+                {currentStep === 1 && (
+                  <Step1EmailOtp
+                    formData={formData}
+                    updateFormData={updateFormData}
+                    onNext={handleNext}
+                  />
+                )}
 
-          {currentStep === 3 && (
-            <Step3Demographics
-              formData={formData}
-              updateFormData={updateFormData}
-              onNext={handleNext}
-            />
-          )}
+                {currentStep === 2 && (
+                  <Step2PersonalDetails
+                    formData={formData}
+                    updateFormData={updateFormData}
+                    onNext={handleNext}
+                  />
+                )}
 
-          {currentStep === 4 && (
-            <Step4Preferences
-              formData={formData}
-              updateFormData={updateFormData}
-              onSubmit={handleNext}
-            />
-          )}
+                {currentStep === 3 && (
+                  <Step3Demographics
+                    formData={formData}
+                    updateFormData={updateFormData}
+                    onNext={handleNext}
+                  />
+                )}
 
-          {currentStep === 5 && <SuccessCelebration formData={formData} />}
+                {currentStep === 4 && (
+                  <Step4Preferences
+                    formData={formData}
+                    updateFormData={updateFormData}
+                    onSubmit={handleNext}
+                  />
+                )}
+
+                {currentStep === 5 && <SuccessCelebration formData={formData} />}
+              </motion.div>
+            </AnimatePresence>
+          </div>
         </div>
 
         {/* Bottom: Legal Disclaimer */}
-        <div className="w-full text-center py-2">
+        <div className="w-full text-center py-2 shrink-0 mt-auto">
           <p className="text-[11px] text-zinc-500 font-normal leading-relaxed max-w-sm mx-auto">
             By clicking continue, you agree to our{' '}
             <Link href="/legal" className="text-zinc-400 hover:text-white underline">
@@ -186,10 +201,9 @@ export function SignUpPage() {
       <button
         type="button"
         onClick={handleFillDummyData}
-        className="fixed bottom-5 right-5 z-50 flex items-center gap-2 rounded-full border border-purple-500/40 bg-zinc-950/90 hover:bg-zinc-900 px-4 py-2 text-xs font-medium text-purple-300 shadow-2xl backdrop-blur-md transition-all hover:scale-105 active:scale-95 cursor-pointer outline-none focus:outline-none focus:ring-0"
+        className="fixed md:bottom-5 right-5 z-50 flex items-center gap-2 rounded-full border border-white/10 bg-zinc-900/90 hover:bg-zinc-900 px-4 py-2 text-xs font-medium text-white transition-all hover:scale-105 active:scale-95 cursor-pointer"
         title="Fill all form state with dummy data for testing without changing step"
       >
-        <Sparkles className="size-3.5 text-purple-400" />
         <span>Fill Test Data</span>
       </button>
     </div>

@@ -92,13 +92,10 @@ export function Step3Demographics({ formData, updateFormData, onNext }: Step3Dem
 
   return (
     <div className="w-full">
-      <div className="text-center mb-8">
+      <div className="text-center mb-6">
         <h2 className="text-2xl sm:text-3xl font-medium tracking-tight text-white">
           Where do you vibe?
         </h2>
-        <p className="mt-2 text-xs sm:text-sm text-zinc-400 font-normal">
-          We match you with active hangouts, clubs, and parties in your area.
-        </p>
       </div>
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-5">

@@ -85,8 +85,8 @@ export function WaitlistButton({
   );
 
   const baseStyles = cn(
-    'group relative text-sm inline-flex shrink-0 items-center justify-center font-medium text-white border border-purple-950 bg-linear-to-b from-purple-400 to-purple-700 shadow-[inset_0_0_0_1.5px_rgba(255,255,255,0.15)] transition-all duration-200 active:scale-[0.97] cursor-pointer hover:opacity-95 disabled:opacity-50 disabled:cursor-not-allowed rounded-full',
-    shouldRenderIcon ? 'p-1 pr-6 gap-3.5' : 'px-6 py-2.5',
+    'group relative h-11 text-sm inline-flex shrink-0 items-center justify-center font-medium text-white border border-purple-950 bg-linear-to-b from-purple-400 to-purple-700 shadow-[inset_0_0_0_1.5px_rgba(255,255,255,0.15)] transition-colors duration-200 cursor-pointer hover:opacity-95 disabled:opacity-50 disabled:cursor-not-allowed rounded-full',
+    shouldRenderIcon ? 'p-1 pr-6 gap-3.5' : 'px-6',
     className,
   );
 

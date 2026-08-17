@@ -27,13 +27,13 @@ export function SuccessCelebration({ formData }: SuccessCelebrationProps) {
       <h2 className="text-3xl sm:text-4xl font-medium tracking-tight text-white">
         Welcome to Extroverts, {formData.fullName.split(' ')[0]}!
       </h2>
-
+      {/* 
       <p className="mt-3 max-w-md text-xs sm:text-sm text-zinc-300 leading-relaxed font-normal">
         Your profile is live as <strong className="text-white">@{formData.username}</strong> in{' '}
         <strong className="text-white">{formData.city || 'your city'}</strong>. You have received
         your first <strong className="text-purple-400">10 Honorary Vibe Tokens</strong> to start
         RSVPing to gatherings.
-      </p>
+      </p> */}
 
       {/* Profile Card Preview */}
       <div className="mt-8 w-full max-w-sm rounded-2xl border border-white/10 bg-zinc-900/70 p-5 text-left backdrop-blur-md">

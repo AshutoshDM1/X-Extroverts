@@ -1,80 +1,54 @@
 'use client';
 
 import React from 'react';
-import { ArrowLeft } from 'lucide-react';
+import { Check } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { SignupStep } from '../types';
 
 interface WizardStepHeaderProps {
   currentStep: SignupStep;
-  onBack: () => void;
+  onStepClick: (step: SignupStep) => void;
 }
 
-const steps = [
-  { step: 1, label: 'Verification' },
-  { step: 2, label: 'Profile' },
-  { step: 3, label: 'Demographics' },
-  { step: 4, label: 'Vibe' },
-];
-
-export function WizardStepHeader({ currentStep, onBack }: WizardStepHeaderProps) {
+export function WizardStepHeader({ currentStep, onStepClick }: WizardStepHeaderProps) {
   if (currentStep > 4) return null;
 
   return (
-    <div className="w-full mb-8">
-      {/* Top Row: Back Button & Step Title */}
-      <div className="flex items-center justify-between mb-6">
-        {currentStep > 1 ? (
-          <button
-            type="button"
-            onClick={onBack}
-            className="inline-flex items-center gap-2 text-xs sm:text-sm font-medium text-zinc-400 hover:text-white transition-colors cursor-pointer"
-          >
-            <ArrowLeft className="size-4" />
-            <span>Back</span>
-          </button>
-        ) : (
-          <div className="w-12" />
-        )}
-
-        <span className="text-xs font-medium uppercase tracking-widest text-zinc-400">
-          Step {currentStep} of 4
-        </span>
-
-        <div className="w-12" />
-      </div>
-
-      {/* Progress Bars */}
-      <div className="grid grid-cols-4 gap-2 sm:gap-3">
-        {steps.map(({ step, label }) => {
+    <div className="md:mt-20 w-full mb-8 flex items-center justify-center">
+      {/* Centered Circular Stepper with Interactive Navigation */}
+      <div className="flex items-center gap-2 sm:gap-3">
+        {[1, 2, 3, 4].map((step, idx) => {
           const isCompleted = currentStep > step;
           const isCurrent = currentStep === step;
+          const isClickable = step < currentStep;
 
           return (
-            <div key={step} className="flex flex-col gap-1.5">
-              <div className="h-1.5 w-full rounded-full bg-white/10 overflow-hidden">
+            <React.Fragment key={step}>
+              {idx > 0 && (
                 <div
                   className={cn(
-                    'h-full rounded-full transition-all duration-500',
-                    isCompleted || isCurrent
-                      ? 'w-full bg-linear-to-r from-purple-500 to-purple-600'
-                      : 'w-0',
+                    'h-px w-6 sm:w-10 transition-colors duration-300',
+                    step <= currentStep ? 'bg-white/30' : 'bg-white/10',
                   )}
                 />
-              </div>
-              <span
+              )}
+              <button
+                type="button"
+                disabled={!isClickable}
+                onClick={() => isClickable && onStepClick(step as SignupStep)}
                 className={cn(
-                  'hidden sm:block text-[11px] font-normal transition-colors text-center truncate',
-                  isCurrent
-                    ? 'text-white font-medium'
-                    : isCompleted
-                      ? 'text-zinc-400'
-                      : 'text-zinc-600',
+                  'flex size-8 sm:size-9 items-center justify-center rounded-full text-xs font-medium transition-all duration-300 outline-none focus:outline-none focus:ring-0',
+                  isCompleted
+                    ? 'bg-zinc-800 text-zinc-300 hover:bg-zinc-700 hover:text-white cursor-pointer active:scale-95'
+                    : isCurrent
+                      ? 'bg-white text-zinc-950 shadow-[0_0_16px_rgba(255,255,255,0.45)] scale-105 cursor-default font-semibold'
+                      : 'bg-zinc-900 text-zinc-600 border border-white/5 cursor-not-allowed',
                 )}
+                title={isCompleted ? `Go back to Step ${step}` : `Step ${step}`}
               >
-                {label}
-              </span>
-            </div>
+                {isCompleted ? <Check className="size-3.5 stroke-2" /> : <span>{step}</span>}
+              </button>
+            </React.Fragment>
           );
         })}
       </div>

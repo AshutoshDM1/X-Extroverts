@@ -71,13 +71,10 @@ export function Step4Preferences({ formData, updateFormData, onSubmit }: Step4Pr
 
   return (
     <div className="w-full">
-      <div className="text-center mb-8">
+      <div className="text-center mb-6">
         <h2 className="text-2xl sm:text-3xl font-medium tracking-tight text-white">
           What is your vibe?
         </h2>
-        <p className="mt-2 text-xs sm:text-sm text-zinc-400 font-normal">
-          Pick your favorite hangout themes to customize your city feed.
-        </p>
       </div>
 
       <form onSubmit={handleFinalSubmit} className="flex flex-col gap-6">
@@ -90,7 +87,7 @@ export function Step4Preferences({ formData, updateFormData, onSubmit }: Step4Pr
             </span>
           </div>
 
-          <div className="flex flex-wrap gap-2 max-h-64 overflow-y-auto pr-1 py-1 [scrollbar-width:thin]">
+          <div className="flex flex-wrap gap-2 max-h-64 overflow-y-auto pr-1 py-1 scrollbar-thin">
             {themeOptions.map((theme) => {
               const isSelected = formData.favoriteThemes?.includes(theme);
               return (

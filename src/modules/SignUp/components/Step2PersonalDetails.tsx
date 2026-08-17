@@ -85,13 +85,10 @@ export function Step2PersonalDetails({
 
   return (
     <div className="w-full">
-      <div className="text-center mb-8">
+      <div className="text-center mb-6">
         <h2 className="text-2xl sm:text-3xl font-medium tracking-tight text-white">
           Tell us about yourself
         </h2>
-        <p className="mt-2 text-xs sm:text-sm text-zinc-400 font-normal">
-          This is how your profile will appear to your hangout circles.
-        </p>
       </div>
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-5">

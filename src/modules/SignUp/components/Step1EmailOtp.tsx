@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import { Mail } from 'lucide-react';
+import { Mail, RefreshCcw } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { WaitlistButton } from '@/Shared/Button/WaitlistButton';
@@ -107,7 +107,7 @@ export function Step1EmailOtp({ formData, updateFormData, onNext }: Step1EmailOt
         isEmailVerified: true,
       });
       onNext();
-    }, 700);
+    }, 800);
   };
 
   const handleOtpChange = (index: number, val: string) => {
@@ -163,15 +163,10 @@ export function Step1EmailOtp({ formData, updateFormData, onNext }: Step1EmailOt
 
   return (
     <div className="w-full">
-      <div className="text-center mb-7">
+      <div className="text-center mb-6">
         <h2 className="text-2xl sm:text-3xl font-medium tracking-tight text-white">
           {codeSent ? 'Verify your email' : 'Sign In or Join Now!'}
         </h2>
-        <p className="mt-2 text-xs sm:text-sm text-zinc-400 font-normal">
-          {codeSent
-            ? `We've sent a 6-digit code to ${formData.email}`
-            : 'Login or create your extroverts account.'}
-        </p>
       </div>
 
       {!codeSent ? (
@@ -181,30 +176,42 @@ export function Step1EmailOtp({ formData, updateFormData, onNext }: Step1EmailOt
               type="button"
               disabled={!!socialLoading}
               onClick={() => handleSocialLogin('Google')}
-              className="flex w-full items-center justify-center gap-3 rounded-2xl bg-zinc-200 hover:bg-white text-zinc-900 py-3 px-4 text-xs sm:text-sm font-medium transition-all duration-150 active:scale-[0.99] disabled:opacity-50 shadow-sm cursor-pointer"
+              className="flex w-full items-center justify-center gap-3 rounded-2xl bg-zinc-200 hover:bg-white text-zinc-900 py-3 px-4 text-xs sm:text-sm font-medium transition-all duration-150 active:scale-[0.99] disabled:opacity-60 shadow-sm cursor-pointer"
             >
-              <GoogleIcon className="size-4" />
-              <span>Continue with Google</span>
+              {socialLoading === 'Google' ? (
+                <RefreshCcw className="size-4 animate-spin text-zinc-900" />
+              ) : (
+                <GoogleIcon className="size-4" />
+              )}
+              <span>{socialLoading === 'Google' ? 'Connecting...' : 'Continue with Google'}</span>
             </button>
 
             <button
               type="button"
               disabled={!!socialLoading}
               onClick={() => handleSocialLogin('Apple')}
-              className="flex w-full items-center justify-center gap-3 rounded-2xl bg-zinc-200 hover:bg-white text-zinc-900 py-3 px-4 text-xs sm:text-sm font-medium transition-all duration-150 active:scale-[0.99] disabled:opacity-50 shadow-sm cursor-pointer"
+              className="flex w-full items-center justify-center gap-3 rounded-2xl bg-zinc-200 hover:bg-white text-zinc-900 py-3 px-4 text-xs sm:text-sm font-medium transition-all duration-150 active:scale-[0.99] disabled:opacity-60 shadow-sm cursor-pointer"
             >
-              <AppleIcon className="size-4" />
-              <span>Continue with Apple</span>
+              {socialLoading === 'Apple' ? (
+                <RefreshCcw className="size-4 animate-spin text-zinc-900" />
+              ) : (
+                <AppleIcon className="size-4" />
+              )}
+              <span>{socialLoading === 'Apple' ? 'Connecting...' : 'Continue with Apple'}</span>
             </button>
 
             <button
               type="button"
               disabled={!!socialLoading}
               onClick={() => handleSocialLogin('GitHub')}
-              className="flex w-full items-center justify-center gap-3 rounded-2xl bg-zinc-200 hover:bg-white text-zinc-900 py-3 px-4 text-xs sm:text-sm font-medium transition-all duration-150 active:scale-[0.99] disabled:opacity-50 shadow-sm cursor-pointer"
+              className="flex w-full items-center justify-center gap-3 rounded-2xl bg-zinc-200 hover:bg-white text-zinc-900 py-3 px-4 text-xs sm:text-sm font-medium transition-all duration-150 active:scale-[0.99] disabled:opacity-60 shadow-sm cursor-pointer"
             >
-              <GithubIcon className="size-4" />
-              <span>Continue with GitHub</span>
+              {socialLoading === 'GitHub' ? (
+                <RefreshCcw className="size-4 animate-spin text-zinc-900" />
+              ) : (
+                <GithubIcon className="size-4" />
+              )}
+              <span>{socialLoading === 'GitHub' ? 'Connecting...' : 'Continue with GitHub'}</span>
             </button>
           </div>
 

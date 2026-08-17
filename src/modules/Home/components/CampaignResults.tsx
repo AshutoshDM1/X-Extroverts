@@ -87,9 +87,8 @@ export function CampaignResults() {
           <div className="mt-12 lg:mt-16 w-full flex justify-center lg:justify-start">
             <CampaignCard
               title="Vibe Tokens & Community"
-              inverted
               metric="Bronze to VIP Club Status"
-              imageSrc="/mockup/image2-Photoroom.png"
+              imageSrc="/mockup/image3-Photoroom.png"
             />
           </div>
         </div>

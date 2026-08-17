@@ -61,7 +61,7 @@ export function PerformanceSolutions() {
             <div
               key={index}
               className={cn(
-                'group relative min-h-60 sm:min-h-64 w-full overflow-hidden rounded-3xl sm:rounded-[32px] border border-white/10 bg-zinc-950 p-8 sm:p-10 text-center transition-all duration-300',
+                'group relative min-h-60 sm:min-h-64 w-full overflow-hidden rounded-3xl sm:rounded-2xl border border-white/10 bg-zinc-950 p-8 sm:p-10 text-center transition-all duration-300',
                 'flex flex-col items-center justify-center hover:border-white/20 active:scale-[0.99]',
               )}
             >

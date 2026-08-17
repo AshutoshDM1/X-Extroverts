@@ -1,182 +1,100 @@
-# TaskFlow — 5-Step AI Development Milestones
+# Frontend Engineering Assessment: Signup Wizard Replication
 
-## Milestone 1 — Project Foundation & Database
+## 1. Overview
 
-**Goal:** Set up the full-stack project and establish the database layer.
+This assessment evaluates your ability to build high-fidelity, functional, and user-centric web interfaces. You are required to replicate the Signup Wizard from an existing application in a responsive website. Your primary objective is to ensure visual parity while implementing robust technical logic for state management and validation.
 
-### Tasks
-
-- Set up frontend and backend applications.
-- Configure development scripts.
-- Set up the relational database.
-- Create `Board`, `Column`, and `Task` models/tables.
-- Add primary keys and required foreign-key relationships.
-- Add required `NOT NULL` constraints.
-- Create database migrations/schema.
-- Create seed data with:
-
-  - 1 demo board
-  - 3 columns: To Do, In Progress, Done
-  - Several sample tasks
-
-- Implement the required database queries:
-
-  - Tasks per column
-  - Tasks by priority, newest first
-
-### Deliverable
-
-A fresh clone can start successfully and initialize a populated database.
+> **Note:** This is a **front-end only** exercise.
 
 ---
 
-## Milestone 2 — Backend API & Validation
+## 2. Reference Materials
 
-**Goal:** Build the backend API required to manage tasks.
-
-### Tasks
-
-Implement APIs for:
-
-- Get board with columns and tasks
-- Create task
-- Update task
-- Delete task
-- Move task between columns
-- Filter tasks by priority
-
-### Validation
-
-- Reject tasks with an empty title.
-- Validate priority values.
-- Validate referenced columns.
-- Return appropriate HTTP status codes.
-
-### Error Handling
-
-- Handle database failures.
-- Handle invalid requests.
-- Return structured API errors.
-- Ensure the frontend can display meaningful errors.
-
-### Deliverable
-
-The complete task-management functionality should be usable through the backend API alone.
+- **Sample Application:** [https://play.google.com/store/apps/details?id=com.pro.nubpack](https://play.google.com/store/apps/details?id=com.pro.nubpack)
+- **Task:** Create a web-application that has the same landing page mechanism, a similar terms and conditions page, and the same 4-step signup form present on the application referenced above. Use of AI tools is encouraged.
+- **Assets & Typography:** For background and logos, you may use any commercially available assets on the internet, and **Poppins** for typography.
+- **Assessment Criteria:** Replicate the app’s signup form in the web-app, ensuring that all functional and UI details are carried over accurately. This includes:
+  - Form validation & error handling
+  - Alerts & global notifications (Toasts/Banners)
+  - Input behavior & constraints
+  - Loading states & submission simulation
+  - Success and failure scenarios
+  - Step navigation (going forward and backward in the wizard)
+  - Overall user experience
+  - Identifying and improving details, interactions, usability issues, or edge cases (e.g., improved OTP UI/UX, age validation prompt for `< 18`) while preserving overall consistency with the app.
 
 ---
 
-## Milestone 3 — Frontend Task Board
+## 3. Technical Requirements
 
-**Goal:** Build the functional TaskFlow UI.
+### A. Core Functionality
 
-### Tasks
+- **Progressive Disclosure:** Implement the wizard as a multi-step process.
+- **Wizard Logic:** Subsequent steps should collect additional profile details (e.g., Name, Age, Pronouns) only after initial email verification or login.
+- **Visual Fidelity:** The website replication must match the app's design in terms of typography, spacing, color palettes, micro-interactions, and component behavior.
 
-- Create the board layout.
-- Display columns.
-- Display tasks inside their respective columns.
-- Create task form/modal.
-- Edit task functionality.
-- Delete task functionality.
-- Move task between columns.
-- Add priority indicators.
-- Display task creation date.
-- Add loading states.
-- Add empty states.
-- Add API error states.
+### B. Form Validation & Logic
 
-### Deliverable
+- **Real-time Validation:** Validate email formats and required fields as the user types (`on-blur` or `on-change`).
+- **Error Handling:** Display clear, contextual error messages beneath fields and utilize global error alerts (Toasts or Banners) for failed submissions.
+- **Input Constraints:** Implement character limits, numeric-only inputs for years/phones, and prevent whitespace-only submissions.
+- **Loading States:** Show a spinner on buttons during "submission" simulation to prevent duplicate entries.
+- **Cross-Field Logic:** Ensure dependencies (e.g., selecting a state filters available cities/colleges) are handled smoothly.
 
-A user can manage tasks entirely through the frontend, with all operations connected to the real backend.
+### C. Advanced User Experience (UX)
+
+- **Responsive Design:** The form and layout must be fully responsive and aesthetically pleasing on mobile, tablet, and desktop viewports.
+- **Success Feedback:** Provide a clear success state or redirect once the profile is "completed."
 
 ---
 
-## Milestone 4 — Filtering, Testing & Reliability
+## 4. Milestones Breakdown
 
-**Goal:** Make the application robust and assignment-ready.
+### Milestone 1 — Project Foundation & Theme Setup
 
-### Tasks
+- [x] Next.js 16 + React 19 + Tailwind CSS v4 setup
+- [x] Poppins typography and theme variables integration
+- [x] Prettier, ESLint, and Husky configuration
+- [ ] Base design tokens, colors, UI component primitives (buttons, inputs, select, dialogs)
 
-#### Filtering
+### Milestone 2 — Landing Page & Terms & Conditions
 
-- Add priority filter:
+- [ ] Landing page mechanism matching the reference app
+- [ ] Terms & Conditions modal / page navigation
+- [ ] Entry point triggers for the multi-step signup wizard
 
-  - All
-  - Low
-  - Medium
-  - High
+### Milestone 3 — 4-Step Signup Wizard & State Management
 
-- Ensure filtering happens correctly without breaking task operations.
+- [ ] **Step 1:** Authentication / Email verification with polished OTP screen
+- [ ] **Step 2:** Personal Details (Name, Age with `>= 18` validation, Pronouns)
+- [ ] **Step 3:** Profile & Demographic / Dependent dropdowns (State, City, College, etc.)
+- [ ] **Step 4:** Preferences / Final review & submission
+- [ ] Smooth step transitions with backward/forward navigation & state persistence
 
-#### Backend Tests
+### Milestone 4 — Comprehensive Form Validation & Edge Cases
 
-Implement at least:
+- [ ] Real-time field validation with inline error messaging
+- [ ] Numeric-only, character limit, and whitespace constraints
+- [ ] Async submission simulations with loading spinners and duplicate submission prevention
+- [ ] Global error and success notifications (Toast/Alerts)
+- [ ] Edge cases handling (underage prompt, invalid OTP, network failure simulation)
 
-1. Creating a task without a title fails.
-2. Moving a task updates its column correctly.
-3. A database query returns the expected results using seed data.
+### Milestone 5 — Responsive Polish, Recording & Submission
 
-#### Reliability
-
-- Handle failed API requests gracefully.
-- Verify data persists after page reload.
-- Verify invalid input cannot bypass backend validation.
-- Remove debugging `console.log`s.
-- Clean up unused/commented-out code.
-
-### Deliverable
-
-The application should be stable, tested, and satisfy all mandatory requirements.
+- [ ] Mobile, tablet, and desktop viewport optimizations
+- [ ] Micro-interactions, animations, and dark/light theme polish
+- [ ] 5-minute screen recording walkthrough covering features, validation, and error states
+- [ ] Final verification against submission requirements
 
 ---
 
-## Milestone 5 — Polish, Documentation & Deployment
+## 5. Submission Instructions
 
-**Goal:** Prepare the project for final submission.
+- **Screen Recording:** Submit a public access link to a screen recording of your local project (maximum 5 minutes) covering the form flow, errors, validation, and edge cases.
+- **AI Chat Link:** Share the link to the AI chat used during the replication process.
+- **Submission Form:** [https://forms.gle/UFK1tUAzVBfStptf9](https://forms.gle/UFK1tUAzVBfStptf9)
 
-### Tasks
-
-#### UI Polish
-
-- Improve spacing and layout.
-- Ensure the board is easy to understand.
-- Make forms and controls intuitive.
-- Add basic responsive behavior.
-- Avoid unnecessary design complexity.
-
-#### README
-
-Document:
-
-- Project overview
-- Tech stack
-- Architecture
-- Features
-- Database schema
-- Setup instructions
-- Environment variables
-- How to run frontend/backend
-- Seed instructions
-- Testing instructions
-- Technical decisions and assumptions
-- What could be improved with more time
-- Approximate development time
-- One interesting thing learned during development
-
-#### Deployment
-
-- Deploy the application if possible.
-- Verify the production build.
-- Verify database persistence.
-- Add the live URL to the README.
-
-### Optional Stretch Goal
-
-Only after everything above works, implement **one**:
-
-- Drag-and-drop
-- Task title search
-- Task count per column
-
-### Deliverable
-
-A clean, documented, tested, and optionally deployed TaskFlow project ready for submission.
+> **Confidentiality & Ownership:**  
+> Your work is yours. We won’t ask you to share or submit your source code as part of this task. We want to respect your time, effort, and intellectual property. If we move forward with your candidacy, we may request the relevant code at that stage for a deeper technical discussion and evaluation, with appropriate confidentiality.
+>
+> _— Vanshika, Technical Hiring Team_

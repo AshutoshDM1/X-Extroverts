@@ -7,10 +7,10 @@ import { Logo } from '@/Shared/Logo/Logo';
 import { WaitlistButton } from '@/Shared/Button/WaitlistButton';
 
 const navLinks = [
-  { label: 'Experiences', href: '#experiences' },
-  { label: 'Features', href: '#features' },
-  { label: 'Community', href: '#results' },
-  { label: 'FAQ', href: '#faq' },
+  { label: 'Experiences', href: '/#experiences' },
+  { label: 'Features', href: '/#features' },
+  { label: 'Community', href: '/#results' },
+  { label: 'FAQ', href: '/#faq' },
 ];
 
 export function Navbar() {
@@ -40,7 +40,7 @@ export function Navbar() {
 
           {/* Right: Reusable CTA Button */}
           <div className="hidden sm:flex items-center">
-            <WaitlistButton href="#signup" text="SignUp" />
+            <WaitlistButton showIcon href="/signup" text="SignUp" />
           </div>
 
           {/* Mobile Menu Trigger */}
@@ -71,7 +71,8 @@ export function Navbar() {
             ))}
             <div className="pt-2">
               <WaitlistButton
-                href="#signup"
+                showIcon
+                href="/signup"
                 text="SignUp"
                 onClick={() => setMobileMenuOpen(false)}
               />

@@ -50,7 +50,7 @@ export function Herosection() {
 
         {/* CTA Button */}
         <div className="mt-10">
-          <WaitlistButton href="#signup" text="SignUp Now" />
+          <WaitlistButton showIcon href="/signup" text="SignUp Now" />
         </div>
 
         {/* Phone Mockup Component */}

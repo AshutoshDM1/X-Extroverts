@@ -2,8 +2,10 @@
 
 import { Section } from '@/Shared/Seaction/Section';
 import HeroBackground from '@/Shared/Background/HeroBackground';
+import { HeroFloatingBlobs } from '@/Shared/Background/HeroFloatingBlobs';
 import { WaitlistButton } from '@/Shared/Button/WaitlistButton';
 import { Particles } from '@/components/ui/particles';
+import { StoreBadges } from '@/Shared/Button/StoreBadges';
 import { HeroMockup } from './HeroMockup';
 
 export function Herosection() {
@@ -15,6 +17,9 @@ export function Herosection() {
     >
       {/* Background Ambient Glow */}
       <HeroBackground />
+
+      {/* Floating 3D Blobs in Corners & Sides */}
+      {/* <HeroFloatingBlobs /> */}
 
       {/* Interactive Particles Layer */}
       <Particles
@@ -48,8 +53,8 @@ export function Herosection() {
           authentic vibe.
         </p>
 
-        {/* CTA Button */}
-        <div className="mt-10">
+        {/* CTAs: SignUp Button & Mobile Store Badges */}
+        <div className="mt-8 sm:mt-10 flex-row-reverse flex items-center gap-4">
           <WaitlistButton showIcon href="/signup" text="SignUp Now" />
         </div>
 

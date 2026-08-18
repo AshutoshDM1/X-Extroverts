@@ -3,6 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
+import { StoreBadges } from '@/Shared/Button/StoreBadges';
 import { FooterFineGrainText } from './FooterFineGrainText';
 
 interface FooterProps {
@@ -55,6 +56,9 @@ export function Footer({ className }: FooterProps) {
             <h2 className="mt-2 text-3xl sm:text-4xl lg:text-5xl font-medium tracking-tight text-white leading-[1.15]">
               Turn city strangers into your crew
             </h2>
+            <div className="mt-6 flex items-center justify-start">
+              <StoreBadges />
+            </div>
           </div>
 
           {/* Right Nav Columns */}

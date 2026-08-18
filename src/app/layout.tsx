@@ -9,8 +9,18 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: 'EXTROVERT - Performance Ads Agency',
-  description: 'Scale your brand with high-converting paid ads',
+  title: 'Extroverts',
+  description:
+    'Turn city strangers into your real-world friends. Discover themed meetups, host spontaneous hangouts, and connect with people who share your authentic vibe.',
+  icons: {
+    icon: '/favicon.ico',
+  },
+  openGraph: {
+    title: 'Extroverts',
+    description:
+      'Turn city strangers into your real-world friends. Discover themed meetups, host spontaneous hangouts, and connect with people who share your authentic vibe.',
+    type: 'website',
+  },
 };
 
 export default function RootLayout({

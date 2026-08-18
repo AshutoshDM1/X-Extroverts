@@ -37,7 +37,7 @@ export function CaseStudyHighlight({ imageSrc, className }: CaseStudyHighlightPr
                 alt="App screenshot showing community hangouts"
                 width={360}
                 height={600}
-                className="relative top-10 object-contain h-150 w-auto"
+                className="relative top-0 md:top-10 object-contain h-100 sm:h-150 w-auto"
                 priority
               />
             </div>

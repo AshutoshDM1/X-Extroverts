@@ -33,6 +33,8 @@ export function CalendarLume({
   const [selectedMonth, setSelectedMonth] = useState<number>(initialDate.getMonth());
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(value);
 
+  const selectedYearRef = React.useRef<HTMLButtonElement | null>(null);
+
   useEffect(() => {
     if (value) {
       setSelectedYear(value.getFullYear());
@@ -40,6 +42,18 @@ export function CalendarLume({
       setSelectedDate(value);
     }
   }, [value]);
+
+  useEffect(() => {
+    if (step === 'year') {
+      const timer = setTimeout(() => {
+        selectedYearRef.current?.scrollIntoView({
+          block: 'center',
+          behavior: 'instant',
+        });
+      }, 60);
+      return () => clearTimeout(timer);
+    }
+  }, [step, selectedYear]);
 
   const yearInterval = eachYearOfInterval({
     start: startOfYear(new Date(minYear, 0, 1)),
@@ -131,6 +145,7 @@ export function CalendarLume({
                     return (
                       <button
                         key={y}
+                        ref={isSelected ? selectedYearRef : undefined}
                         type="button"
                         onClick={() => {
                           setSelectedYear(y);

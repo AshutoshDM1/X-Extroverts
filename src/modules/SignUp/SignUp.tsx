@@ -10,8 +10,9 @@ import { Particles } from '@/components/ui/particles';
 import { WizardStepHeader } from './components/WizardStepHeader';
 import { Step1EmailOtp } from './components/Step1EmailOtp';
 import { Step2PersonalDetails } from './components/Step2PersonalDetails';
-import { Step3Demographics } from './components/Step3Demographics';
+import { Step3Pronouns } from './components/Step3Pronouns';
 import { Step4Preferences } from './components/Step4Preferences';
+import { Step5InviteCode } from './components/Step5InviteCode';
 import { SuccessCelebration } from './components/SuccessCelebration';
 import { SignupFormData, SignupStep } from './types';
 
@@ -23,14 +24,11 @@ const initialFormData: SignupFormData = {
   username: '',
   birthDate: '',
   age: null,
-  gender: '',
+  pronouns: [],
   customPronouns: '',
   state: '',
   city: '',
-  collegeOrWork: '',
-  instagramHandle: '',
-  favoriteThemes: [],
-  bio: '',
+  inviteCode: '',
   agreeTerms: false,
 };
 
@@ -52,21 +50,24 @@ export function SignUpPage() {
       username: 'sarah_j',
       birthDate: '2001-06-15',
       age: 25,
-      gender: 'She / Her',
+      pronouns: ['she', 'her'],
       customPronouns: '',
-      state: 'California',
-      city: 'Los Angeles',
-      collegeOrWork: 'UCLA Music Department',
-      instagramHandle: 'sarah.vibes',
-      favoriteThemes: ['Music Party', 'Brunch-Cation', 'Game Night', 'Social Mixer'],
-      bio: 'Indie vocalist and vinyl collector. Always down for acoustic jam sessions and cafe hopping!',
-      agreeTerms: true,
+      state: 'Maharashtra',
+      city: 'Mumbai',
+      inviteCode: 'PARTY30',
+      agreeTerms: false,
     });
   };
 
   const handleNext = () => {
-    if (currentStep < 5) {
+    if (currentStep < 6) {
       setCurrentStep((prev) => (prev + 1) as SignupStep);
+    }
+  };
+
+  const handleBack = () => {
+    if (currentStep > 1) {
+      setCurrentStep((prev) => (prev - 1) as SignupStep);
     }
   };
 
@@ -74,7 +75,7 @@ export function SignUpPage() {
     <div className="min-h-screen w-full grid grid-cols-1 lg:grid-cols-2 bg-black text-white selection:bg-purple-600 selection:text-white">
       {/* Left Column: Visual Brand, Hero Background Image, Particles & Testimonial */}
       <div className="relative hidden lg:flex flex-col justify-between p-10 xl:p-14 overflow-hidden bg-zinc-950 border-r border-white/10 select-none">
-        {/* Only Hero Background Image */}
+        {/* Hero Background Image */}
         <HeroBackground />
 
         {/* Interactive Particles Layer */}
@@ -92,13 +93,12 @@ export function SignUpPage() {
           <Logo />
         </div>
 
-        {/* Bottom: Testimonial Quote */}
+        {/* Bottom: Brand Statement & Quote */}
         <div className="relative z-10 max-w-lg">
-          <p className="text-sm xl:text-xl font-normal text-zinc-200 leading-relaxed tracking-wide">
-            &ldquo;This Platform has helped me to save time and connect with genuine hangout crews
-            in my city faster than ever before.&rdquo;
+          <p className="text-base sm:text-lg xl:text-2xl font-medium text-white leading-snug tracking-tight">
+            &ldquo;Turn city strangers into your weekend crew. Real people, authentic vibes, and
+            unforgettable memories.&rdquo;
           </p>
-          <p className="mt-3 text-xs font-medium text-white tracking-wide">~ Ali Hassan</p>
         </div>
       </div>
 
@@ -122,8 +122,8 @@ export function SignUpPage() {
 
         {/* Center: Multi-Step Wizard Flow (Top-aligned to eliminate vertical jumping) */}
         <div className="w-full max-w-lg mx-auto pt-6 sm:pt-10 pb-8 flex-1 flex flex-col justify-start">
-          {/* Fixed Stepper at top */}
-          {currentStep <= 4 && (
+          {/* Fixed Stepper at top (steps 1 to 5) */}
+          {currentStep <= 5 && (
             <div className="shrink-0 w-full">
               <WizardStepHeader
                 currentStep={currentStep}
@@ -160,7 +160,7 @@ export function SignUpPage() {
                 )}
 
                 {currentStep === 3 && (
-                  <Step3Demographics
+                  <Step3Pronouns
                     formData={formData}
                     updateFormData={updateFormData}
                     onNext={handleNext}
@@ -171,11 +171,20 @@ export function SignUpPage() {
                   <Step4Preferences
                     formData={formData}
                     updateFormData={updateFormData}
-                    onSubmit={handleNext}
+                    onNext={handleNext}
                   />
                 )}
 
-                {currentStep === 5 && <SuccessCelebration formData={formData} />}
+                {currentStep === 5 && (
+                  <Step5InviteCode
+                    formData={formData}
+                    updateFormData={updateFormData}
+                    onSubmit={handleNext}
+                    onBack={handleBack}
+                  />
+                )}
+
+                {currentStep === 6 && <SuccessCelebration formData={formData} />}
               </motion.div>
             </AnimatePresence>
           </div>
@@ -185,11 +194,19 @@ export function SignUpPage() {
         <div className="w-full text-center py-2 shrink-0 mt-auto">
           <p className="text-[11px] text-zinc-500 font-normal leading-relaxed max-w-sm mx-auto">
             By clicking continue, you agree to our{' '}
-            <Link href="/legal" className="text-zinc-400 hover:text-white underline">
+            <Link
+              href="/terms"
+              target="_blank"
+              className="text-zinc-400 hover:text-white underline"
+            >
               Terms of Service
             </Link>{' '}
             and{' '}
-            <Link href="/legal" className="text-zinc-400 hover:text-white underline">
+            <Link
+              href="/privacy"
+              target="_blank"
+              className="text-zinc-400 hover:text-white underline"
+            >
               Privacy Policy
             </Link>
             .

@@ -11,13 +11,13 @@ interface WizardStepHeaderProps {
 }
 
 export function WizardStepHeader({ currentStep, onStepClick }: WizardStepHeaderProps) {
-  if (currentStep > 4) return null;
+  if (currentStep > 5) return null;
 
   return (
     <div className="md:mt-20 w-full mb-8 flex items-center justify-center">
       {/* Centered Circular Stepper with Interactive Navigation */}
       <div className="flex items-center gap-2 sm:gap-3">
-        {[1, 2, 3, 4].map((step, idx) => {
+        {[1, 2, 3, 4, 5].map((step, idx) => {
           const isCompleted = currentStep > step;
           const isCurrent = currentStep === step;
           const isClickable = step < currentStep;
@@ -27,7 +27,7 @@ export function WizardStepHeader({ currentStep, onStepClick }: WizardStepHeaderP
               {idx > 0 && (
                 <div
                   className={cn(
-                    'h-px w-6 sm:w-10 transition-colors duration-300',
+                    'h-px w-5 sm:w-8 transition-colors duration-300',
                     step <= currentStep ? 'bg-white/30' : 'bg-white/10',
                   )}
                 />
@@ -37,7 +37,7 @@ export function WizardStepHeader({ currentStep, onStepClick }: WizardStepHeaderP
                 disabled={!isClickable}
                 onClick={() => isClickable && onStepClick(step as SignupStep)}
                 className={cn(
-                  'flex size-8 sm:size-9 items-center justify-center rounded-full text-xs font-medium transition-all duration-300 outline-none focus:outline-none focus:ring-0',
+                  'flex size-8 sm:size-8.5 items-center justify-center rounded-full text-xs font-medium transition-all duration-300 outline-none focus:outline-none focus:ring-0',
                   isCompleted
                     ? 'bg-zinc-800 text-zinc-300 hover:bg-zinc-700 hover:text-white cursor-pointer active:scale-95'
                     : isCurrent

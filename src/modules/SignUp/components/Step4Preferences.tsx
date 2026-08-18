@@ -1,60 +1,53 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Check } from 'lucide-react';
+import { MapPin } from 'lucide-react';
 import { Label } from '@/components/ui/label';
-import { Checkbox } from '@/components/ui/checkbox';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { WaitlistButton } from '@/Shared/Button/WaitlistButton';
 import { cn } from '@/lib/utils';
 import { SignupFormData, StepValidationErrors } from '../types';
+import { INDIA_STATES_CITIES, INDIAN_STATES_LIST } from '../data/indiaLocations';
 
 interface Step4PreferencesProps {
   formData: SignupFormData;
   updateFormData: (data: Partial<SignupFormData>) => void;
-  onSubmit: () => void;
+  onNext: () => void;
 }
 
-const themeOptions = [
-  'Music Party',
-  'House Party',
-  'Brunch-Cation',
-  'Meet & Greet',
-  'Social Mixer',
-  'House Of Fun',
-  'Weekend Antidote',
-  'Nightlife',
-  'Aesthetic Cafe',
-  'Karaoke Night',
-  'Game Night',
-  'Dance Party',
-  'Beach Party',
-  'Tropical Getaway',
-];
-
-export function Step4Preferences({ formData, updateFormData, onSubmit }: Step4PreferencesProps) {
+export function Step4Preferences({ formData, updateFormData, onNext }: Step4PreferencesProps) {
   const [errors, setErrors] = useState<StepValidationErrors>({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const toggleTheme = (theme: string) => {
-    const current = formData.favoriteThemes || [];
-    const exists = current.includes(theme);
-    const updated = exists ? current.filter((t) => t !== theme) : [...current, theme];
-    updateFormData({ favoriteThemes: updated });
-    if (errors.favoriteThemes) {
-      setErrors((prev) => ({ ...prev, favoriteThemes: undefined }));
-    }
+  const availableCities = formData.state ? INDIA_STATES_CITIES[formData.state] || [] : [];
+
+  const handleStateChange = (selectedState: string | null) => {
+    updateFormData({ state: selectedState || '', city: '' });
+    if (errors.state) setErrors((prev) => ({ ...prev, state: undefined }));
+    if (errors.city) setErrors((prev) => ({ ...prev, city: undefined }));
   };
 
-  const handleFinalSubmit = (e: React.FormEvent) => {
+  const handleCityChange = (selectedCity: string | null) => {
+    updateFormData({ city: selectedCity || '' });
+    if (errors.city) setErrors((prev) => ({ ...prev, city: undefined }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const newErrors: StepValidationErrors = {};
 
-    if (!formData.favoriteThemes || formData.favoriteThemes.length === 0) {
-      newErrors.favoriteThemes = 'Pick at least 1 theme you love attending';
+    if (!formData.state) {
+      newErrors.state = 'Please select your state';
     }
 
-    if (!formData.agreeTerms) {
-      newErrors.agreeTerms = 'Please agree to community terms & guidelines';
+    if (!formData.city) {
+      newErrors.city = 'Please select your city';
     }
 
     if (Object.keys(newErrors).length > 0) {
@@ -62,91 +55,116 @@ export function Step4Preferences({ formData, updateFormData, onSubmit }: Step4Pr
       return;
     }
 
-    setIsSubmitting(true);
-    setTimeout(() => {
-      setIsSubmitting(false);
-      onSubmit();
-    }, 1200);
+    onNext();
   };
 
   return (
     <div className="w-full">
       <div className="text-center mb-6">
         <h2 className="text-2xl sm:text-3xl font-medium tracking-tight text-white">
-          What is your vibe?
+          Where do you vibe?
         </h2>
+        <p className="mt-1.5 text-xs text-zinc-400">
+          Find local party circles and upcoming gatherings in your area
+        </p>
       </div>
 
-      <form onSubmit={handleFinalSubmit} className="flex flex-col gap-6">
-        {/* Favorite Themes Multi-Select */}
-        <div>
-          <div className="flex items-center justify-between mb-3">
-            <Label className="text-xs font-medium text-zinc-300">Select Themes you enjoy</Label>
-            <span className="text-[11px] text-zinc-400">
-              {formData.favoriteThemes?.length || 0} selected
-            </span>
-          </div>
-
-          <div className="flex flex-wrap gap-2 max-h-64 overflow-y-auto pr-1 py-1 scrollbar-thin">
-            {themeOptions.map((theme) => {
-              const isSelected = formData.favoriteThemes?.includes(theme);
-              return (
-                <button
-                  key={theme}
-                  type="button"
-                  onClick={() => toggleTheme(theme)}
+      <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+        {/* State & City 2-column layout */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {/* State Selector */}
+          <div>
+            <Label className="block text-xs font-medium text-zinc-300 mb-2">State</Label>
+            <div className="relative">
+              <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-zinc-500 z-10">
+                <MapPin className="size-4" />
+              </div>
+              <Select value={formData.state || undefined} onValueChange={handleStateChange}>
+                <SelectTrigger
                   className={cn(
-                    'flex items-center gap-1.5 rounded-full border-0 px-3.5 py-2 text-xs transition-all duration-200 cursor-pointer outline-none focus:outline-none focus:ring-0',
-                    isSelected
-                      ? 'bg-purple-600/35 text-white font-medium shadow-sm'
-                      : 'bg-zinc-900/90 text-zinc-400 hover:text-white',
+                    'w-full h-11 rounded-2xl border-0 bg-zinc-900/90 pl-10 pr-3 text-sm text-white transition-all outline-none focus:outline-none focus:ring-0 focus-visible:ring-0 cursor-pointer',
+                    !formData.state && 'text-zinc-500',
                   )}
                 >
-                  {isSelected && <Check className="size-3 text-purple-300" />}
-                  <span>{theme}</span>
-                </button>
-              );
-            })}
+                  <SelectValue placeholder="Select State" />
+                </SelectTrigger>
+                <SelectContent
+                  side="bottom"
+                  align="start"
+                  alignItemWithTrigger={false}
+                  className="bg-zinc-950/95 border border-white/10 text-white rounded-2xl p-1.5 z-50 w-(--anchor-width) shadow-2xl backdrop-blur-xl overflow-hidden"
+                >
+                  <ScrollArea className="h-60 w-full pr-1.5">
+                    <div className="space-y-0.5">
+                      {INDIAN_STATES_LIST.map((st) => (
+                        <SelectItem
+                          key={st}
+                          value={st}
+                          className="rounded-xl hover:bg-zinc-900 focus:bg-zinc-900 text-white cursor-pointer text-xs sm:text-sm py-2 px-2.5"
+                        >
+                          {st}
+                        </SelectItem>
+                      ))}
+                    </div>
+                  </ScrollArea>
+                </SelectContent>
+              </Select>
+            </div>
+            {errors.state && (
+              <p className="mt-1.5 text-xs text-red-400 font-normal">{errors.state}</p>
+            )}
           </div>
-          {errors.favoriteThemes && (
-            <p className="mt-2 text-xs text-red-400 font-normal">{errors.favoriteThemes}</p>
-          )}
+
+          {/* Dependent City Selector */}
+          <div>
+            <Label className="block text-xs font-medium text-zinc-300 mb-2">City</Label>
+            <div className="relative">
+              <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-zinc-500 z-10">
+                <MapPin className="size-4" />
+              </div>
+              <Select
+                value={formData.city || undefined}
+                disabled={!formData.state}
+                onValueChange={handleCityChange}
+              >
+                <SelectTrigger
+                  className={cn(
+                    'w-full h-11 rounded-2xl border-0 bg-zinc-900/90 pl-10 pr-3 text-sm text-white transition-all outline-none focus:outline-none focus:ring-0 focus-visible:ring-0 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed',
+                    !formData.city && 'text-zinc-500',
+                  )}
+                >
+                  <SelectValue placeholder={formData.state ? 'Select City' : 'State first'} />
+                </SelectTrigger>
+                <SelectContent
+                  side="bottom"
+                  align="start"
+                  alignItemWithTrigger={false}
+                  className="bg-zinc-950/95 border border-white/10 text-white rounded-2xl p-1.5 z-50 w-(--anchor-width) shadow-2xl backdrop-blur-xl overflow-hidden"
+                >
+                  <ScrollArea className="h-60 w-full pr-1.5">
+                    <div className="space-y-0.5">
+                      {availableCities.map((ct) => (
+                        <SelectItem
+                          key={ct}
+                          value={ct}
+                          className="rounded-xl hover:bg-zinc-900 focus:bg-zinc-900 text-white cursor-pointer text-xs sm:text-sm py-2 px-2.5"
+                        >
+                          {ct}
+                        </SelectItem>
+                      ))}
+                    </div>
+                  </ScrollArea>
+                </SelectContent>
+              </Select>
+            </div>
+            {errors.city && (
+              <p className="mt-1.5 text-xs text-red-400 font-normal">{errors.city}</p>
+            )}
+          </div>
         </div>
 
-        {/* Terms Agreement */}
-        <div className="pt-2">
-          <div className="flex items-start gap-3 select-none">
-            <Checkbox
-              id="terms"
-              checked={formData.agreeTerms}
-              onCheckedChange={(checked) => {
-                updateFormData({ agreeTerms: checked === true });
-                if (errors.agreeTerms) setErrors((prev) => ({ ...prev, agreeTerms: undefined }));
-              }}
-              className="mt-1 cursor-pointer "
-            />
-            <label
-              htmlFor="terms"
-              className="text-xs text-zinc-300 font-normal leading-relaxed cursor-pointer"
-            >
-              I agree to the{' '}
-              <a href="/legal" target="_blank" className="text-purple-400 hover:underline">
-                Community Guidelines
-              </a>{' '}
-              and{' '}
-              <a href="/legal" target="_blank" className="text-purple-400 hover:underline">
-                Terms of Service
-              </a>
-              . I pledge to respect all circle members and foster safe, welcoming hangouts.
-            </label>
-          </div>
-          {errors.agreeTerms && (
-            <p className="mt-2 text-xs text-red-400 font-normal">{errors.agreeTerms}</p>
-          )}
-        </div>
-
-        <WaitlistButton type="submit" loading={isSubmitting} className="w-full mt-2">
-          {isSubmitting ? 'Creating your profile...' : 'Complete Signup & Enter Extroverts'}
+        <WaitlistButton type="submit" className="w-full mt-3">
+          Continue to Invite Code
         </WaitlistButton>
       </form>
     </div>

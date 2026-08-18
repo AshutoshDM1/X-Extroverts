@@ -18,8 +18,6 @@ interface Step2PersonalDetailsProps {
   onNext: () => void;
 }
 
-const pronounOptions = ['He / Him', 'She / Her', 'They / Them', 'Prefer not to say', 'Custom'];
-
 export function Step2PersonalDetails({
   formData,
   updateFormData,
@@ -71,10 +69,6 @@ export function Step2PersonalDetails({
       newErrors.birthDate = 'Extroverts is for ages 18 and older';
     }
 
-    if (!formData.gender) {
-      newErrors.gender = 'Please select your pronouns';
-    }
-
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       return;
@@ -89,10 +83,13 @@ export function Step2PersonalDetails({
         <h2 className="text-2xl sm:text-3xl font-medium tracking-tight text-white">
           Tell us about yourself
         </h2>
+        <p className="mt-1.5 text-xs text-zinc-400">
+          Your personal details to set up your party identity
+        </p>
       </div>
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-        {/* Full Name & Username in 2-column grid */}
+        {/* Full Name & Username */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {/* Full Name */}
           <div>
@@ -186,7 +183,7 @@ export function Step2PersonalDetails({
 
             <DialogContent
               showCloseButton={false}
-              className="max-w-[460px] p-0 bg-transparent border-0 shadow-none ring-0 flex items-center justify-center"
+              className="max-w-[460px] p-0 bg-transparent border-0 shadow-none ring-0 flex items-center justify-center lg:left-[75%] lg:-translate-x-1/2"
             >
               <CalendarLume
                 value={parsedDate && !isNaN(parsedDate.getTime()) ? parsedDate : undefined}
@@ -206,39 +203,8 @@ export function Step2PersonalDetails({
           )}
         </div>
 
-        {/* Pronouns / Gender */}
-        <div>
-          <Label className="block text-xs font-medium text-zinc-300 mb-2.5">Pronouns</Label>
-          <div className="flex flex-wrap gap-2">
-            {pronounOptions.map((option) => {
-              const isSelected = formData.gender === option;
-              return (
-                <button
-                  key={option}
-                  type="button"
-                  onClick={() => {
-                    updateFormData({ gender: option });
-                    if (errors.gender) setErrors((prev) => ({ ...prev, gender: undefined }));
-                  }}
-                  className={cn(
-                    'rounded-full border-0 px-4 py-2 text-xs font-normal transition-all duration-200 cursor-pointer outline-none focus:outline-none focus:ring-0',
-                    isSelected
-                      ? 'bg-purple-600/35 text-white font-medium shadow-sm'
-                      : 'bg-zinc-900/90 text-zinc-400 hover:text-white',
-                  )}
-                >
-                  {option}
-                </button>
-              );
-            })}
-          </div>
-          {errors.gender && (
-            <p className="mt-2 text-xs text-red-400 font-normal">{errors.gender}</p>
-          )}
-        </div>
-
         <WaitlistButton type="submit" className="w-full mt-3">
-          Continue to Location
+          Continue to Pronouns
         </WaitlistButton>
       </form>
     </div>

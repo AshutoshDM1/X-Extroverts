@@ -6,7 +6,14 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { WaitlistButton } from '@/Shared/Button/WaitlistButton';
 import { cn } from '@/lib/utils';
+import { z } from 'zod';
 import { SignupFormData } from '../types';
+
+const emailSchema = z
+  .string()
+  .trim()
+  .min(1, 'Please enter your email address')
+  .email('Please enter a valid email address');
 
 interface Step1EmailOtpProps {
   formData: SignupFormData;
@@ -71,22 +78,14 @@ export function Step1EmailOtp({ formData, updateFormData, onNext }: Step1EmailOt
     return () => clearInterval(timer);
   }, [codeSent, resendTimer]);
 
-  const validateEmail = (email: string) => {
-    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return re.test(email.trim());
-  };
-
   const handleSendCode = (e?: React.FormEvent) => {
     if (e) e.preventDefault();
     setEmailError('');
 
-    if (!formData.email.trim()) {
-      setEmailError('Please enter your email address');
-      return;
-    }
-
-    if (!validateEmail(formData.email)) {
-      setEmailError('Please enter a valid email address');
+    const validationResult = emailSchema.safeParse(formData.email);
+    if (!validationResult.success) {
+      const issue = validationResult.error.issues[0];
+      setEmailError(issue?.message || 'Please enter a valid email address');
       return;
     }
 
@@ -222,7 +221,7 @@ export function Step1EmailOtp({ formData, updateFormData, onNext }: Step1EmailOt
             </span>
           </div>
 
-          <form onSubmit={handleSendCode} className="flex flex-col gap-4">
+          <form onSubmit={handleSendCode} noValidate className="flex flex-col gap-4">
             <div>
               <Label className="block text-sm font-normal text-zinc-400 mb-1.5">
                 Enter your email address to sign in
@@ -239,10 +238,7 @@ export function Step1EmailOtp({ formData, updateFormData, onNext }: Step1EmailOt
                     if (emailError) setEmailError('');
                   }}
                   placeholder="your.email@example.com"
-                  className={cn(
-                    'h-10 pl-11 pr-4 text-sm rounded-2xl border-0 bg-zinc-900/90 focus:outline-none focus:ring-0 focus-visible:ring-0',
-                    emailError && 'text-red-300',
-                  )}
+                  className="h-10 pl-11 pr-4 text-sm rounded-2xl border-0 bg-zinc-900/90 text-white focus:outline-none focus:ring-0 focus-visible:ring-0"
                 />
               </div>
               {emailError && (

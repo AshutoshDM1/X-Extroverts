@@ -10,7 +10,50 @@ import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import { CalendarLume } from '@/components/custom-calender';
 import { WaitlistButton } from '@/Shared/Button/WaitlistButton';
 import { cn } from '@/lib/utils';
+import { z } from 'zod';
 import { SignupFormData, StepValidationErrors } from '../types';
+
+const step2Schema = z.object({
+  fullName: z
+    .string()
+    .trim()
+    .min(1, 'Please enter your full name')
+    .min(4, 'Full name must be at least 4 letters')
+    .regex(/^[a-zA-Z\s'-]+$/, 'Full name can only contain letters')
+    .refine(
+      (val) => {
+        const parts = val.trim().split(/\s+/).filter(Boolean);
+        return parts.length >= 2 && parts.every((part) => part.length >= 2);
+      },
+      {
+        message: 'Please enter your real first and last name (e.g. Alex Morgan)',
+      },
+    ),
+  username: z
+    .string()
+    .trim()
+    .min(1, 'Choose a unique username')
+    .min(4, 'Username must be at least 4 characters')
+    .max(20, 'Username must be 20 characters or less')
+    .regex(/^[a-z]/, 'Username must start with a letter')
+    .regex(/^[a-z0-9_.]+$/, 'Username can only contain letters, numbers, underscores, and dots')
+    .refine((val) => !/^(.)\1{3,}$/.test(val), {
+      message: 'Username cannot be repetitive characters',
+    })
+    .refine((val) => !/[._]{2,}/.test(val), {
+      message: 'Username cannot have consecutive dots or underscores',
+    })
+    .refine((val) => !/[._]$/.test(val), {
+      message: 'Username cannot end with a dot or underscore',
+    }),
+  birthDate: z.string().min(1, 'Date of birth is required'),
+  age: z
+    .number()
+    .nullable()
+    .refine((val) => val !== null && val >= 18, {
+      message: 'Extroverts is for ages 18 and older',
+    }),
+});
 
 interface Step2PersonalDetailsProps {
   formData: SignupFormData;
@@ -51,25 +94,23 @@ export function Step2PersonalDetails({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const newErrors: StepValidationErrors = {};
+    setErrors({});
 
-    if (!formData.fullName.trim()) {
-      newErrors.fullName = 'Full name is required';
-    }
+    const result = step2Schema.safeParse({
+      fullName: formData.fullName,
+      username: formData.username,
+      birthDate: formData.birthDate,
+      age: formData.age,
+    });
 
-    if (!formData.username.trim()) {
-      newErrors.username = 'Choose a unique username';
-    } else if (formData.username.trim().length < 3) {
-      newErrors.username = 'Username must be at least 3 characters';
-    }
-
-    if (!formData.birthDate) {
-      newErrors.birthDate = 'Date of birth is required';
-    } else if (formData.age !== null && formData.age < 18) {
-      newErrors.birthDate = 'Extroverts is for ages 18 and older';
-    }
-
-    if (Object.keys(newErrors).length > 0) {
+    if (!result.success) {
+      const newErrors: StepValidationErrors = {};
+      for (const issue of result.error.issues) {
+        const field = issue.path[0] as string;
+        if (field && !newErrors[field]) {
+          newErrors[field] = issue.message;
+        }
+      }
       setErrors(newErrors);
       return;
     }
@@ -88,7 +129,7 @@ export function Step2PersonalDetails({
         </p>
       </div>
 
-      <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+      <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-5">
         {/* Full Name & Username */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {/* Full Name */}
@@ -106,10 +147,7 @@ export function Step2PersonalDetails({
                   if (errors.fullName) setErrors((prev) => ({ ...prev, fullName: undefined }));
                 }}
                 placeholder="Alex Morgan"
-                className={cn(
-                  'h-10 pl-11 pr-4 text-sm rounded-2xl border-0 bg-zinc-900/90 focus:outline-none focus:ring-0 focus-visible:ring-0',
-                  errors.fullName && 'text-red-300',
-                )}
+                className="h-10 pl-11 pr-4 text-sm rounded-2xl border-0 bg-zinc-900/90 text-white focus:outline-none focus:ring-0 focus-visible:ring-0"
               />
             </div>
             {errors.fullName && (
@@ -133,10 +171,7 @@ export function Step2PersonalDetails({
                   if (errors.username) setErrors((prev) => ({ ...prev, username: undefined }));
                 }}
                 placeholder="alex_vibes"
-                className={cn(
-                  'h-10 pl-11 pr-4 text-sm rounded-2xl border-0 bg-zinc-900/90 focus:outline-none focus:ring-0 focus-visible:ring-0',
-                  errors.username && 'text-red-300',
-                )}
+                className="h-10 pl-11 pr-4 text-sm rounded-2xl border-0 bg-zinc-900/90 text-white focus:outline-none focus:ring-0 focus-visible:ring-0"
               />
             </div>
             {errors.username && (

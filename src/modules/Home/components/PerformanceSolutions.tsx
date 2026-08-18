@@ -62,51 +62,65 @@ export function PerformanceSolutions() {
               key={index}
               className={cn(
                 'group relative min-h-60 sm:min-h-64 w-full overflow-hidden rounded-3xl sm:rounded-2xl border border-white/10 bg-zinc-950 p-8 sm:p-10 text-center transition-all duration-300',
-                'flex flex-col items-center justify-center hover:border-white/20 active:scale-[0.99]',
+                'flex flex-col items-center justify-center hover:border-white/25 active:scale-[0.99] shadow-2xl',
               )}
             >
-              {/* CSS Ambient Gradient Background with Noise Texture */}
+              {/* CSS Ambient Gradient Background with High-Fidelity Grain Texture */}
               <div
                 className="pointer-events-none absolute inset-0 z-0 select-none overflow-hidden"
                 aria-hidden="true"
               >
                 {feature.glowColor === 'purple' ? (
                   <>
-                    <div className="absolute -bottom-16 -left-12 h-64 w-64 rounded-full bg-[#5b1ce6]/25 blur-[75px] transition-opacity duration-500 group-hover:opacity-100" />
-                    <div className="absolute -top-16 -right-12 h-64 w-64 rounded-full bg-[#3b0764]/20 blur-[75px]" />
+                    <div className="absolute -bottom-16 -left-12 h-64 w-64 rounded-full bg-[#5b1ce6]/35 blur-[75px] transition-opacity duration-500 group-hover:opacity-100" />
+                    <div className="absolute -top-16 -right-12 h-64 w-64 rounded-full bg-[#3b0764]/30 blur-[75px]" />
                   </>
                 ) : (
                   <>
-                    <div className="absolute -bottom-16 -right-12 h-64 w-64 rounded-full bg-[#c2410c]/25 blur-[75px] transition-opacity duration-500 group-hover:opacity-100" />
-                    <div className="absolute -top-16 -left-12 h-64 w-64 rounded-full bg-[#7c2d12]/15 blur-[75px]" />
+                    <div className="absolute -bottom-16 -right-12 h-64 w-64 rounded-full bg-[#c2410c]/35 blur-[75px] transition-opacity duration-500 group-hover:opacity-100" />
+                    <div className="absolute -top-16 -left-12 h-64 w-64 rounded-full bg-[#7c2d12]/25 blur-[75px]" />
                   </>
                 )}
 
-                {/* Subtle Stipple Noise */}
+                {/* Tactile Micro-Grain Stipple Noise */}
                 <svg
-                  className="absolute inset-0 h-full w-full opacity-[0.035] mix-blend-overlay"
+                  className="absolute inset-0 h-full w-full opacity-10 mix-blend-overlay"
                   xmlns="http://www.w3.org/2000/svg"
                 >
-                  <filter id={`card-noise-${index}`}>
+                  <filter id={`card-noise-${index}`} x="0%" y="0%" width="100%" height="100%">
                     <feTurbulence
                       type="fractalNoise"
-                      baseFrequency="0.8"
-                      numOctaves="3"
+                      baseFrequency="1.3"
+                      numOctaves="4"
                       stitchTiles="stitch"
+                      result="noise"
                     />
-                    <feColorMatrix type="saturate" values="0" />
+                    <feColorMatrix
+                      type="matrix"
+                      values="1 0 0 0 0
+                              0 1 0 0 0
+                              0 0 1 0 0
+                              0 0 0 3.5 -0.9"
+                      in="noise"
+                      result="stipple"
+                    />
                   </filter>
-                  <rect width="100%" height="100%" filter={`url(#card-noise-${index})`} />
+                  <rect
+                    width="100%"
+                    height="100%"
+                    filter={`url(#card-noise-${index})`}
+                    fill="#ffffff"
+                  />
                 </svg>
 
-                <div className="absolute inset-0 bg-linear-to-b from-black/20 via-transparent to-black/30" />
+                <div className="absolute inset-0 bg-linear-to-b from-black/10 via-transparent to-black/40" />
               </div>
 
               {/* Foreground Content */}
               <div className="relative z-10 flex flex-col items-center">
                 {/* Coral Icon */}
                 <div className="mb-4 flex size-12 items-center justify-center transition-transform duration-300 group-hover:scale-110">
-                  <Icon className="size-8 sm:size-9 text-[#fba282] stroke-[1.6]" />
+                  <Icon className="size-8 sm:size-9 text-[#fba282] stroke-2" />
                 </div>
 
                 {/* Card Title */}

@@ -3,30 +3,37 @@
 import React from 'react';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
+import { FooterFineGrainText } from './FooterFineGrainText';
 
 interface FooterProps {
   className?: string;
 }
 
 export function Footer({ className }: FooterProps) {
-  const pageLinks = [
-    { label: 'About', href: '#about' },
-    { label: 'Services', href: '#services' },
-    { label: 'Blog', href: '#blogs' },
-    { label: '404', href: '/404' },
+  const exploreLinks = [
+    { label: 'Experiences', href: '/#experiences' },
+    { label: 'Features', href: '/#features' },
+    { label: 'Community', href: '/#results' },
+    { label: 'FAQ', href: '/#faq' },
   ];
 
-  const infoLinks = [
-    { label: 'FAQ', href: '#faq' },
-    { label: 'Contact', href: '#contact' },
-    { label: 'Legal', href: '/legal' },
-    { label: 'Coming soon', href: '/coming-soon' },
+  const communityLinks = [
+    { label: 'Themed Meetups', href: '/#features' },
+    { label: 'Vibe Tokens (HVT)', href: '/#features' },
+    { label: 'Private Circles', href: '/#features' },
+    { label: 'Safety Guidelines', href: '/guidelines' },
+  ];
+
+  const legalLinks = [
+    { label: 'Privacy Policy', href: '/privacy' },
+    { label: 'Terms of Service', href: '/terms' },
+    { label: 'Community Standards', href: '/guidelines' },
   ];
 
   return (
     <footer className={cn('relative w-full bg-black px-4 sm:px-8 pb-8 pt-12 sm:pt-16', className)}>
       {/* Large Rounded Card Container */}
-      <div className="relative mx-auto max-w-7xl overflow-hidden rounded-[32px] sm:rounded-[48px] border border-white/10 bg-zinc-950 px-8 pt-12 pb-2 sm:px-14 sm:pt-16 sm:pb-4 lg:px-16 lg:pt-20">
+      <div className="relative mx-auto max-w-7xl overflow-hidden rounded-[32px] sm:rounded-[48px] border border-white/10 bg-zinc-950 px-8 pt-12 pb-4 sm:px-14 sm:pt-16 sm:pb-6 lg:px-16 lg:pt-20">
         {/* Subtle Ambient Radial Glows */}
         <div
           className="pointer-events-none absolute inset-0 select-none overflow-hidden"
@@ -40,22 +47,23 @@ export function Footer({ className }: FooterProps) {
 
         {/* Top Content Row */}
         <div className="relative z-10 flex flex-col lg:flex-row lg:items-start lg:justify-between gap-12 lg:gap-16">
-          {/* Left Headline */}
+          {/* Left Headline & Brand Info */}
           <div className="max-w-md">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-medium tracking-tight text-white leading-[1.15]">
-              Ready to scale
-              <br />
-              your brand?
+            <span className="text-xs uppercase tracking-widest font-mono text-zinc-400">
+              Join the Movement
+            </span>
+            <h2 className="mt-2 text-3xl sm:text-4xl lg:text-5xl font-medium tracking-tight text-white leading-[1.15]">
+              Turn city strangers into your crew
             </h2>
           </div>
 
           {/* Right Nav Columns */}
-          <div className="flex gap-16 sm:gap-24">
-            {/* Pages Column */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-10 sm:gap-14">
+            {/* Explore Column */}
             <div>
-              <h3 className="text-sm font-medium text-white tracking-tight mb-4">Pages</h3>
+              <h3 className="text-sm font-medium text-white tracking-tight mb-4">Explore</h3>
               <ul className="flex flex-col gap-2.5">
-                {pageLinks.map((link) => (
+                {exploreLinks.map((link) => (
                   <li key={link.label}>
                     <Link
                       href={link.href}
@@ -68,11 +76,28 @@ export function Footer({ className }: FooterProps) {
               </ul>
             </div>
 
-            {/* Information Column */}
+            {/* Community Column */}
             <div>
-              <h3 className="text-sm font-medium text-white tracking-tight mb-4">Information</h3>
+              <h3 className="text-sm font-medium text-white tracking-tight mb-4">Community</h3>
               <ul className="flex flex-col gap-2.5">
-                {infoLinks.map((link) => (
+                {communityLinks.map((link) => (
+                  <li key={link.label}>
+                    <Link
+                      href={link.href}
+                      className="text-xs sm:text-sm font-normal text-zinc-400 hover:text-white transition-colors duration-150"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Legal / Info Column */}
+            <div className="col-span-2 sm:col-span-1">
+              <h3 className="text-sm font-medium text-white tracking-tight mb-4">Legal & Trust</h3>
+              <ul className="flex flex-col gap-2.5">
+                {legalLinks.map((link) => (
                   <li key={link.label}>
                     <Link
                       href={link.href}
@@ -87,52 +112,9 @@ export function Footer({ className }: FooterProps) {
           </div>
         </div>
 
-        {/* Responsive Scalable SVG Big Text with Masked Stipple Noise */}
+        {/* Responsive Scalable Extroverts Big Text with High-Res Micro Grain */}
         <div className="pointer-events-none relative mt-12 sm:mt-16 flex w-full items-end justify-center overflow-hidden select-none">
-          <svg
-            viewBox="0 0 140 28"
-            className="mx-auto w-full max-w-7xl px-2 sm:px-4"
-            preserveAspectRatio="xMidYMid meet"
-          >
-            <defs>
-              {/* Linear Gradient for Extroverts Title */}
-              <linearGradient id="footerTextGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stopColor="#a14828" />
-                <stop offset="48%" stopColor="#7c3aed" />
-                <stop offset="75%" stopColor="#4f1db8" />
-                <stop offset="100%" stopColor="#311075" />
-              </linearGradient>
-
-              {/* Noise Texture Filter Strictly Masked to Letterforms */}
-              <filter id="footerTextNoise" x="-10%" y="-10%" width="120%" height="120%">
-                {/* 1. Generate Noise */}
-                <feTurbulence
-                  type="fractalNoise"
-                  baseFrequency="0.85"
-                  numOctaves="3"
-                  stitchTiles="stitch"
-                  result="rawNoise"
-                />
-                {/* 2. Mask Noise strictly inside letter alpha */}
-                <feComposite in="rawNoise" in2="SourceAlpha" operator="in" result="maskedNoise" />
-                {/* 3. Blend masked noise over text graphic */}
-                <feBlend in="maskedNoise" in2="SourceGraphic" mode="overlay" />
-              </filter>
-            </defs>
-
-            <text
-              x="50%"
-              y="50%"
-              dy=".35em"
-              textAnchor="middle"
-              fill="url(#footerTextGrad)"
-              filter="url(#footerTextNoise)"
-              className="font-sans font-medium tracking-tight"
-              fontSize="24"
-            >
-              Extroverts
-            </text>
-          </svg>
+          <FooterFineGrainText />
         </div>
       </div>
     </footer>

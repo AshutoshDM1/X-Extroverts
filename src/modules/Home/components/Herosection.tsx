@@ -27,7 +27,7 @@ export function Herosection() {
       />
 
       {/* Main Foreground Content */}
-      <div className="relative z-10 mx-auto flex max-w-3xl flex-col items-center px-4">
+      <div className="relative z-10 mx-auto flex max-w-4xl flex-col items-center px-4">
         {/* Top Pill Badge */}
         <div className="mt-6 inline-flex items-center rounded-full border border-white/15 bg-white/4 px-5 py-1.5 backdrop-blur-md transition-all hover:border-white/25">
           <span className="text-[11px] font-medium uppercase tracking-[0.2em] text-zinc-300">
@@ -37,9 +37,9 @@ export function Herosection() {
 
         {/* Main Headline */}
         <h1 className="mt-8 text-3xl font-normal tracking-tight text-white sm:text-4xl md:text-5xl lg:text-6xl leading-[1.12]">
-          Turn city strangers into
+          Turn city strangers
           <br />
-          your real-world crew
+          into your real-world friends
         </h1>
 
         {/* Subtitle */}

@@ -123,7 +123,7 @@ export function Step4Preferences({ formData, updateFormData, onSubmit }: Step4Pr
                 updateFormData({ agreeTerms: checked === true });
                 if (errors.agreeTerms) setErrors((prev) => ({ ...prev, agreeTerms: undefined }));
               }}
-              className="mt-0.5 border-0 bg-zinc-900/90 data-[state=checked]:bg-purple-600 data-[state=checked]:text-white outline-none focus:outline-none focus:ring-0 focus-visible:ring-0"
+              className="mt-1 cursor-pointer "
             />
             <label
               htmlFor="terms"

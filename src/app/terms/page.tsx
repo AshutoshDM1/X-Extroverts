@@ -142,7 +142,7 @@ export default function TermsPage() {
       <main className="relative flex-1 pt-28 sm:pt-36 pb-20 overflow-hidden">
         {/* Seamless Centered Ambient Glow */}
         <div
-          className="pointer-events-none absolute top-16 left-1/2 -translate-x-1/2 h-80 w-[600px] max-w-full rounded-full bg-linear-to-b from-[#7c3aed]/25 via-[#c2410c]/20 to-transparent blur-[120px]"
+          className="pointer-events-none absolute top-16 left-1/2 -translate-x-1/2 h-80 w-150 max-w-full rounded-full bg-linear-to-b from-[#7c3aed]/25 via-[#c2410c]/20 to-transparent blur-[120px]"
           aria-hidden="true"
         />
 

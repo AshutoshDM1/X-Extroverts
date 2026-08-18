@@ -6,8 +6,8 @@ import { format } from 'date-fns';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
-import { Calendar } from '@/components/ui/calendar';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
+import { CalendarLume } from '@/components/custom-calender';
 import { WaitlistButton } from '@/Shared/Button/WaitlistButton';
 import { cn } from '@/lib/utils';
 import { SignupFormData, StepValidationErrors } from '../types';
@@ -148,7 +148,7 @@ export function Step2PersonalDetails({
           </div>
         </div>
 
-        {/* Date of Birth via shadcn Popover + Calendar */}
+        {/* Date of Birth with Custom Calendar Lume Dialog */}
         <div>
           <div className="flex items-center justify-between mb-2">
             <Label className="text-xs font-medium text-zinc-300">Date of Birth</Label>
@@ -167,8 +167,8 @@ export function Step2PersonalDetails({
             )}
           </div>
 
-          <Popover open={calendarOpen} onOpenChange={setCalendarOpen}>
-            <PopoverTrigger
+          <Dialog open={calendarOpen} onOpenChange={setCalendarOpen}>
+            <DialogTrigger
               className={cn(
                 'relative flex h-10 w-full items-center justify-start rounded-2xl border-0 bg-zinc-900/90 pl-11 pr-4 text-left text-sm transition-all outline-none focus:outline-none focus:ring-0 cursor-pointer',
                 !formData.birthDate ? 'text-zinc-500' : 'text-white',
@@ -182,23 +182,21 @@ export function Step2PersonalDetails({
                   ? format(parsedDate, 'PPP')
                   : 'Select your date of birth'}
               </span>
-            </PopoverTrigger>
-            <PopoverContent
-              className="w-auto p-0 bg-zinc-950 border border-white/10 rounded-2xl shadow-2xl z-50"
-              align="start"
+            </DialogTrigger>
+
+            <DialogContent
+              showCloseButton={false}
+              className="max-w-[460px] p-0 bg-transparent border-0 shadow-none ring-0 flex items-center justify-center"
             >
-              <Calendar
-                mode="single"
-                selected={parsedDate && !isNaN(parsedDate.getTime()) ? parsedDate : undefined}
-                onSelect={handleDateSelect}
-                captionLayout="dropdown"
-                startMonth={new Date(1950, 0)}
-                endMonth={new Date()}
-                disabled={(date) => date > new Date() || date < new Date('1900-01-01')}
-                className="bg-zinc-950 text-white rounded-2xl p-3"
+              <CalendarLume
+                value={parsedDate && !isNaN(parsedDate.getTime()) ? parsedDate : undefined}
+                onSelectDate={handleDateSelect}
+                onClose={() => setCalendarOpen(false)}
+                minYear={1940}
+                maxYear={new Date().getFullYear()}
               />
-            </PopoverContent>
-          </Popover>
+            </DialogContent>
+          </Dialog>
 
           {errors.birthDate && (
             <div className="mt-1.5 flex items-center gap-1.5 text-xs text-red-400 font-normal">

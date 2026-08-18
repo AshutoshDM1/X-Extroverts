@@ -224,8 +224,8 @@ export function Step1EmailOtp({ formData, updateFormData, onNext }: Step1EmailOt
 
           <form onSubmit={handleSendCode} className="flex flex-col gap-4">
             <div>
-              <Label className="block text-xs font-normal text-zinc-400 mb-1.5">
-                Enter your email address to sign in or create an account
+              <Label className="block text-sm font-normal text-zinc-400 mb-1.5">
+                Enter your email address to sign in
               </Label>
               <div className="relative">
                 <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 text-zinc-500 z-10">

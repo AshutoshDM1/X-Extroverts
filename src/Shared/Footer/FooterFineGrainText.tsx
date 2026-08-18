@@ -1,7 +1,4 @@
 'use client';
-
-import React from 'react';
-
 interface FooterFineGrainTextProps {
   className?: string;
 }
@@ -57,7 +54,7 @@ export function FooterFineGrainText({ className }: FooterFineGrainTextProps) {
           textAnchor="middle"
           fill="url(#fineGrainTextGrad)"
           filter="url(#crispMicroNoise)"
-          fontSize="175"
+          fontSize="200"
           fontWeight="600"
           letterSpacing="-0.035em"
           className="font-sans"

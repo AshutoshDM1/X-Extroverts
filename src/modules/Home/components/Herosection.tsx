@@ -13,7 +13,7 @@ export function Herosection() {
     <Section
       size="default"
       padding="none"
-      className="relative min-h-[92vh] flex flex-col items-center justify-center text-center pt-20 sm:pt-24 pb-12 overflow-hidden"
+      className="relative min-h-[92vh] flex flex-col items-center justify-center text-center sm:pt-24 pb-40 sm:pb-12 overflow-hidden"
     >
       {/* Background Ambient Glow */}
       <HeroBackground />
@@ -32,11 +32,11 @@ export function Herosection() {
       />
 
       {/* Main Foreground Content */}
-      <div className="relative z-10 mx-auto flex max-w-4xl flex-col items-center px-4">
+      <div className="relative z-10 mx-auto flex max-w-4xl flex-col items-center">
         {/* Top Pill Badge */}
-        <div className="mt-6 inline-flex items-center rounded-full border border-white/15 bg-white/4 px-5 py-1.5 backdrop-blur-md transition-all hover:border-white/25">
-          <span className="text-[11px] font-medium uppercase tracking-[0.2em] text-zinc-300">
-            STRANGERS. HANGOUTS. MEMORIES.
+        <div className="mt-6 inline-flex items-center rounded-full border border-white/15 bg-white/4 px-4 py-1 sm:px-5 sm:py-1.5 backdrop-blur-md transition-all hover:border-white/25">
+          <span className="inline-flex items-center gap-1 font-medium uppercase tracking-[0.2em] text-zinc-300 origin-center  text-[9px] whitespace-nowrap">
+            <span className="sm:inline">STRANGERS.</span> HANGOUTS. MEMORIES.
           </span>
         </div>
 

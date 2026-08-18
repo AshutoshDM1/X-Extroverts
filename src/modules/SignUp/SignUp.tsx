@@ -121,7 +121,7 @@ export function SignUpPage() {
         </div>
 
         {/* Center: Multi-Step Wizard Flow (Top-aligned to eliminate vertical jumping) */}
-        <div className="w-full max-w-lg mx-auto pt-6 sm:pt-10 pb-8 flex-1 flex flex-col justify-start">
+        <div className="w-full max-w-lg mx-auto pt-10 pb-8 flex-1 flex flex-col justify-start">
           {/* Fixed Stepper at top (steps 1 to 5) */}
           {currentStep <= 5 && (
             <div className="shrink-0 w-full">
@@ -218,7 +218,7 @@ export function SignUpPage() {
       <button
         type="button"
         onClick={handleFillDummyData}
-        className="fixed md:bottom-5 right-5 z-50 flex items-center gap-2 rounded-full border border-white/10 bg-zinc-900/90 hover:bg-zinc-900 px-4 py-2 text-xs font-medium text-white transition-all hover:scale-105 active:scale-95 cursor-pointer"
+        className="fixed bottom-5 right-5 z-50 flex items-center gap-2 rounded-full border border-white/10 bg-zinc-900/90 hover:bg-zinc-900 px-4 py-2 text-xs font-medium text-white transition-all hover:scale-105 active:scale-95 cursor-pointer"
         title="Fill all form state with dummy data for testing without changing step"
       >
         <span>Fill Test Data</span>

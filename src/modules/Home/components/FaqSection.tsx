@@ -58,7 +58,7 @@ export function FaqSection() {
         {/* Left Column: Heading */}
         <div className="lg:col-span-5 flex flex-col">
           <span className="text-xs font-medium tracking-wide text-zinc-400 uppercase">FAQ</span>
-          <h2 className="mt-4 text-3xl sm:text-4xl lg:text-5xl font-medium tracking-tight text-white leading-[1.15]">
+          <h2 className="mt-4 text-2xl sm:text-4xl lg:text-5xl font-medium tracking-tight text-white leading-[1.15]">
             Your Questions
             <br />
             Answered Clearly
@@ -115,7 +115,7 @@ export function FaqSection() {
 
                 {/* Header Row: Question + Icon */}
                 <div className="relative z-10 flex items-center justify-between gap-4">
-                  <h3 className="text-lg sm:text-xl font-medium tracking-tight text-white">
+                  <h3 className="text-sm sm:text-xl font-medium tracking-tight text-white">
                     {faq.question}
                   </h3>
 

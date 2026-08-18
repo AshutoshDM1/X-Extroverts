@@ -53,7 +53,7 @@ export function Footer({ className }: FooterProps) {
             <span className="text-xs uppercase tracking-widest font-mono text-zinc-400">
               Join the Movement
             </span>
-            <h2 className="mt-2 text-3xl sm:text-4xl lg:text-5xl font-medium tracking-tight text-white leading-[1.15]">
+            <h2 className="mt-2 text-xl sm:text-4xl lg:text-5xl font-medium tracking-tight text-white leading-[1.15]">
               Turn city strangers into your crew
             </h2>
             <div className="mt-6 flex items-center justify-start">

@@ -72,7 +72,7 @@ export function CampaignResults() {
             <span className="text-xs uppercase tracking-wider font-medium text-zinc-400">
               Experiences
             </span>
-            <h2 className="mt-2 text-2xl sm:text-3xl lg:text-4xl tracking-tight text-white leading-[1.15] font-medium">
+            <h2 className="mt-2 text-2xl sm:text-2xl lg:text-4xl tracking-tight text-white leading-[1.15] font-medium">
               Real connections.
               <br />
               Unforgettable hangouts.

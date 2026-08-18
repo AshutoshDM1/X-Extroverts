@@ -52,7 +52,7 @@ export default function GuidelinesPage() {
 
         <div className="relative mx-auto max-w-4xl px-4 sm:px-6">
           <div className="text-center">
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-medium tracking-tight text-white leading-[1.15]">
+            <h1 className="text-2xl sm:text-4xl lg:text-5xl font-medium tracking-tight text-white leading-[1.15]">
               Community Guidelines
             </h1>
             <p className="mt-3 text-sm sm:text-base text-zinc-400 max-w-xl mx-auto font-normal">

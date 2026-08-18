@@ -45,7 +45,7 @@ export function PerformanceSolutions() {
       {/* Section Header */}
       <div className="mx-auto max-w-2xl text-center">
         <span className="text-xs font-medium tracking-wide text-zinc-400">Features</span>
-        <h2 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-medium tracking-tight text-white leading-[1.15]">
+        <h2 className="mt-3 text-2xl sm:text-4xl lg:text-5xl font-medium tracking-tight text-white leading-[1.15]">
           Designed for connection
         </h2>
         <p className="mt-3 text-sm sm:text-base leading-relaxed text-zinc-400 font-normal">
@@ -54,7 +54,7 @@ export function PerformanceSolutions() {
       </div>
 
       {/* 2x2 Minimal Feature Grid */}
-      <div className="mt-12 sm:mt-16 grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 max-w-5xl mx-auto">
+      <div className="mt-12 sm:mt-16 grid grid-cols-1 md:grid-cols-2 gap-3 lg:gap-8 max-w-5xl mx-auto">
         {features.map((feature, index) => {
           const Icon = feature.icon;
           return (
@@ -120,11 +120,11 @@ export function PerformanceSolutions() {
               <div className="relative z-10 flex flex-col items-center">
                 {/* Coral Icon */}
                 <div className="mb-4 flex size-12 items-center justify-center transition-transform duration-300 group-hover:scale-110">
-                  <Icon className="size-8 sm:size-9 text-[#fba282] stroke-2" />
+                  <Icon className="size-6 sm:size-9 text-[#fba282] stroke-2" />
                 </div>
 
                 {/* Card Title */}
-                <h3 className="text-xl sm:text-2xl font-medium tracking-tight text-white">
+                <h3 className="text-base sm:text-2xl font-medium tracking-tight text-white">
                   {feature.title}
                 </h3>
 

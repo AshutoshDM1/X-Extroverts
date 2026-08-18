@@ -1,6 +1,11 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Poppins } from 'next/font/google';
 import './globals.css';
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+};
 
 const poppins = Poppins({
   variable: '--font-sans',
@@ -30,7 +35,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`dark ${poppins.variable}`} suppressHydrationWarning>
-      <head />
       <body className="bg-black text-white antialiased selection:bg-purple-600 selection:text-white">
         {children}
       </body>

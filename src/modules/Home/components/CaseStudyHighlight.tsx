@@ -52,7 +52,7 @@ export function CaseStudyHighlight({ imageSrc, className }: CaseStudyHighlightPr
           </span>
 
           {/* Main Headline */}
-          <h2 className="mt-4 text-2xl sm:text-3xl lg:text-4xl font-normal tracking-tight text-white leading-[1.15]">
+          <h2 className="mt-4 text-2xl sm:text-2xl lg:text-4xl font-normal tracking-tight text-white leading-[1.15]">
             Strangers today.
             <br />
             Your crew tomorrow.
